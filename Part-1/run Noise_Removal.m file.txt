@@ -1,0 +1,3 @@
+Please run Noise_Removal.m file
+and 
+see results in 'result' floder
