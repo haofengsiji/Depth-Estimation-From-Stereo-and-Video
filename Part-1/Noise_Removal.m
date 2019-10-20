@@ -2,9 +2,16 @@ clear
 clc
 addpath('GCMex')
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% pairwise = connected edge
+% class = label
+% unary = data term cost
+% labelcost = prior term
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %read image
 img = double(imread('bayes_in.jpg'));
-[height, weight, ~] = size(img);
+[height, width, ~] = size(img);
 
 SOURCE_COLOR = [0, 0, 255]; % blue = foreground
 SINK_COLOR = [245, 210, 110]; % yellow = background
@@ -30,7 +37,7 @@ end
 tic
 % construct edge
 %   locate the neighbors' location
-loc_board = ones(height,weight);
+loc_board = ones(height,width);
 loc_right = find(imtranslate(loc_board,[-1, 0],'FillValues',0) ~= 0);
 loc_left = find(imtranslate(loc_board,[1, 0],'FillValues',0) ~= 0);
 loc_top = find(imtranslate(loc_board,[0,1],'FillValues',0) ~= 0);
@@ -50,7 +57,7 @@ for lam=[1:10,20:10:100]
     board = repmat(reshape(SINK_COLOR,1,3),N,1);
     idx = find(labels==1);
     board(idx,:) =  repmat(reshape(SOURCE_COLOR,1,3),size(idx,1),1);
-    out_img = uint8(reshape(board,height,weight,3));
+    out_img = uint8(reshape(board,height,width,3));
     if ~exist('result', 'dir')
        mkdir('result')
     end
