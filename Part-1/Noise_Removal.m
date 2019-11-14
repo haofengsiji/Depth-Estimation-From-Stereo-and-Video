@@ -1,6 +1,6 @@
 clear
 clc
-addpath('GCMex')
+addpath('../GCMex')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % pairwise = connected edge
